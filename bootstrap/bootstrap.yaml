@@ -8,7 +8,7 @@ spec:
 #    namespace: playground-ns
     server: "https://kubernetes.default.svc"
   # Target ArgoCD project where the application will be created
-  project: playground
+  project: default
   source:
     repoURL: "https://github.com/ryanezil/cluster-bootstrapping"
     path: platform
