@@ -1,0 +1,18 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: playground
+  namespace: openshift-gitops
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  description: Demo project to deploy platoform resources
+  # Only applications from this source are deployed into this project
+  sourceRepos:
+  - '*'
+  # Target destination namespaces allowed
+  destinations:
+  - namespace: openshift-operators
+    server: '*'
+  - namespace: amqstreams
+    server: '*'
