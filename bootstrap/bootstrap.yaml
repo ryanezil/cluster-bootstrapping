@@ -17,7 +17,10 @@ spec:
     targetRevision: main
   syncPolicy:
     automated:
+      # ArgoCD will delete resources when Argo CD detects the resource is no longer defined in Git
       prune: true
+      # By default, changes that are made to the live cluster will not trigger automated sync.
+      # To enable automatic sync when the live cluster's state deviates, set the self-heal option to true
       selfHeal: false
 #    syncOptions:
 #    - CreateNamespace=true
