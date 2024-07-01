@@ -10,12 +10,16 @@ spec:
   - group: '*'
     kind: Namespace
   description: Demo project to deploy platoform resources
-  # Only applications from this source are deployed into this project
-  sourceRepos:
-  - '*'
-  # Target destination namespaces allowed
+  # Target namespaces allowed
   destinations:
   - namespace: openshift-operators
     server: '*'
   - namespace: amqstreams
     server: '*'
+  - namespace: playground
+    server: '*'
+  - namespace: openshift-gitops
+    server: '*'
+# Only applications from this source are deployed into this project
+  sourceRepos:
+  - '*'

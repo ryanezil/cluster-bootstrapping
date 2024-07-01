@@ -2,18 +2,18 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   annotations:
-    argocd.argoproj.io/sync-wave: "1"
-  name: amq-streams-operator
+    argocd.argoproj.io/sync-wave: "3"
+  name: amq-streams-kafka-connect
   namespace: openshift-gitops
 spec:
   destination:
-    namespace: openshift-operators
+    namespace: amqstreams
     server: "https://kubernetes.default.svc"
   # Target ArgoCD project where this application will be created
   project: playground
   source:
     repoURL: "https://github.com/ryanezil/cluster-bootstrapping"
-    path: platform/amq-streams-operator
+    path: platform/amq-streams-kafka-connect
     targetRevision: main
   syncPolicy:
     automated:
