@@ -5,10 +5,9 @@ metadata:
   namespace: openshift-gitops
 spec:
   destination:
-#    namespace: playground-ns
     server: "https://kubernetes.default.svc"
   # Target ArgoCD project where the application will be created
-  project: default
+  project: playground
   source:
     repoURL: "https://github.com/ryanezil/cluster-bootstrapping"
     path: platform
@@ -22,5 +21,3 @@ spec:
       # By default, changes that are made to the live cluster will not trigger automated sync.
       # To enable automatic sync when the live cluster's state deviates, set the self-heal option to true
       selfHeal: false
-#    syncOptions:
-#    - CreateNamespace=true
