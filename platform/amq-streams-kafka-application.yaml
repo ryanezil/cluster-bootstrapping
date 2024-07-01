@@ -8,8 +8,7 @@ spec:
     namespace: amqstreams
     server: "https://kubernetes.default.svc"
   # Target ArgoCD project where this application will be created
-#  project: playground
-  project: default
+  project: playground
   source:
     repoURL: "https://github.com/ryanezil/cluster-bootstrapping"
     path: platform/amq-streams-kafka
