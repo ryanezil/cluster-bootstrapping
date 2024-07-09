@@ -20,6 +20,8 @@ spec:
     server: '*'
   - namespace: openshift-gitops
     server: '*'
+  - namespace: grafana
+    server: '*'
 # Only applications from this source are deployed into this project
   sourceRepos:
   - '*'
