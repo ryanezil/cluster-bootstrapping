@@ -2,25 +2,20 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   annotations:
-    argocd.argoproj.io/sync-wave: "2"
-  name: amq-streams-kafka
+    argocd.argoproj.io/sync-wave: "3"
+  name: grafana
   namespace: openshift-gitops
 spec:
   destination:
-    # NOTE: This namespace value is hardcoded in the files:
-    # + strimzi-pod-monitor.yaml
-    # + grafana-cluster-monitoring-binding.yaml
-    namespace: amqstreams
+    namespace: grafana
     server: "https://kubernetes.default.svc"
   # Target ArgoCD project where this application will be created
   project: playground
   source:
     repoURL: "https://github.com/ryanezil/cluster-bootstrapping"
-    path: platform/amq-streams-kafka
+    path: platform/grafana
     targetRevision: main
   syncPolicy:
     automated:
       prune: true
       selfHeal: false
-    syncOptions:
-    - CreateNamespace=true

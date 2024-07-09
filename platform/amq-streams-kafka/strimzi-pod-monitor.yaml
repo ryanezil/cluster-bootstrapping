@@ -32,23 +32,23 @@ spec:
   - path: /metrics
     port: healthcheck
 ---
-apiVersion: monitoring.coreos.com/v1
-kind: PodMonitor
-metadata:
-  name: bridge-metrics
-  labels:
-    app: strimzi
-spec:
-  selector:
-    matchLabels:
-      strimzi.io/kind: KafkaBridge
-  namespaceSelector:
-    matchNames:
-      - amqstreams
-  podMetricsEndpoints:
-  - path: /metrics
-    port: rest-api
----
+#apiVersion: monitoring.coreos.com/v1
+#kind: PodMonitor
+#metadata:
+#  name: bridge-metrics
+#  labels:
+#    app: strimzi
+#spec:
+#  selector:
+#    matchLabels:
+#      strimzi.io/kind: KafkaBridge
+#  namespaceSelector:
+#    matchNames:
+#      - amqstreams
+#  podMetricsEndpoints:
+#  - path: /metrics
+#    port: rest-api
+#---
 apiVersion: monitoring.coreos.com/v1
 kind: PodMonitor
 metadata:
