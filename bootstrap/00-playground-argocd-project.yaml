@@ -9,7 +9,7 @@ spec:
   clusterResourceWhitelist:
   - group: '*'
     kind: Namespace
-  description: Demo project to deploy platoform resources
+  description: Demo project to deploy platform resources
   # Target namespaces allowed
   destinations:
   - namespace: openshift-operators

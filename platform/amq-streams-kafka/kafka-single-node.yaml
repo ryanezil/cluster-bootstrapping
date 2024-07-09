@@ -131,6 +131,39 @@ spec:
                     operator: "Exists"
                 topologyKey: "kubernetes.io/hostname"
               weight: 100
+
+    metricsConfig:
+      type: jmxPrometheusExporter
+      valueFrom:
+        configMapKeyRef:
+          name: kafka-metrics
+          key: kafka-metrics-config.yml
+
+
+  #################
+  # KAFKA EXPORTER
+  #################
+  kafkaExporter:
+    groupRegex: ".*"
+    topicRegex: ".*"
+    groupExcludeRegex: "^excluded-.*"
+    topicExcludeRegex: "^excluded-.*"
+    resources:
+      requests:
+        cpu: 200m
+        memory: 64Mi
+      limits:
+        cpu: 500m
+        memory: 128Mi
+    logging: debug
+    enableSaramaLogging: true
+    readinessProbe:
+      initialDelaySeconds: 15
+      timeoutSeconds: 5
+    livenessProbe:
+      initialDelaySeconds: 15
+      timeoutSeconds: 5
+
   zookeeper:
     replicas: 1
     storage:
@@ -147,6 +180,12 @@ spec:
       limits:
         cpu: 250m
         memory: 1024Mi
+    metricsConfig:
+      type: jmxPrometheusExporter
+      valueFrom:
+        configMapKeyRef:
+          name: kafka-metrics
+          key: zookeeper-metrics-config.yml
     template:
       pod:
         affinity:

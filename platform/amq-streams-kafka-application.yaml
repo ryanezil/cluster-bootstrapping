@@ -7,6 +7,7 @@ metadata:
   namespace: openshift-gitops
 spec:
   destination:
+    # NOTE: This namespace value is hardcoded in the file 'strimzi-pod-monitor.yaml'
     namespace: amqstreams
     server: "https://kubernetes.default.svc"
   # Target ArgoCD project where this application will be created
