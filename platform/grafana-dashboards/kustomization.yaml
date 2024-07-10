@@ -6,6 +6,7 @@ resources:
   - strimzi-zookeeper-dashboard.yaml
   - strimzi-kafka-exporter-dashboard.yaml
   - strimzi-kafka-connect-dashboard.yaml
+  - strimzi-operators-dashboard.yaml
 
 components:
   - ./dashboard-definitions/strimzi
@@ -13,5 +14,4 @@ components:
 
 commonLabels:
   app: grafana
-
 

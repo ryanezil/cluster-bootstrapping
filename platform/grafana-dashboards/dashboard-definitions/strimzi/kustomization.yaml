@@ -15,5 +15,4 @@ configMapGenerator:
     - strimzi-kafka.json=./strimzi-kafka.json
     - strimzi-zookeeper.json=./strimzi-zookeeper.json
     - strimzi-kafka-connect.json=./strimzi-kafka-connect.json
-
-
+    - strimzi-operators.json=./strimzi-operators.json
