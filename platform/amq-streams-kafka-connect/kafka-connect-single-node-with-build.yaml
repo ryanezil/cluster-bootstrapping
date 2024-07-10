@@ -59,6 +59,12 @@ spec:
     loggers:
       log4j.rootLogger: INFO
       log4j.logger.io.debezium.connector.mongodb: TRACE
+  metricsConfig:
+    type: jmxPrometheusExporter
+    valueFrom:
+      configMapKeyRef:
+        name: kafka-connect-metrics
+        key: metrics-config.yml
   resources:
 #    requests:
 #      cpu: 500m
