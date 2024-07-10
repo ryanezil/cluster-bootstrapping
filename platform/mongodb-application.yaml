@@ -1,0 +1,23 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  annotations:
+    argocd.argoproj.io/sync-wave: "3"
+  name: mongodb
+  namespace: openshift-gitops
+spec:
+  destination:
+    namespace: mongodb
+    server: "https://kubernetes.default.svc"
+  # Target ArgoCD project where this application will be created
+  project: playground
+  source:
+    repoURL: "https://github.com/ryanezil/cluster-bootstrapping"
+    path: platform/mongodb
+    targetRevision: main
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: false
+    syncOptions:
+    - CreateNamespace=true

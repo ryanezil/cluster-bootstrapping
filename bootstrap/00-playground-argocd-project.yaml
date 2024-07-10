@@ -26,6 +26,8 @@ spec:
     server: '*'
   - namespace: mariadb
     server: '*'
+  - namespace: mongodb
+    server: '*'
 # Only applications from this source are deployed into this project
   sourceRepos:
   - '*'
