@@ -21,3 +21,13 @@ spec:
       selfHeal: false
     syncOptions:
     - CreateNamespace=true
+
+    # Some configmaps containing Dashboards are facing this error:
+    # ConfigMap "strimzi-dashboards" is invalid: metadata.annotations: Too long:
+    # must have at most 262144 bytes -Additional Info: This error usually means
+    # that you are trying to add a large resource on client side.
+    # Consider using Server-side apply or syncing with replace enabled.
+    #
+    # By default, Argo CD executes kubectl apply operation to apply the configuration stored in Git
+    # https://argo-cd.readthedocs.io/en/stable/user-guide/sync-options/#replace-resource-instead-of-applying-changes
+    - Replace=true
