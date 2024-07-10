@@ -1,0 +1,24 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  annotations:
+    argocd.argoproj.io/sync-wave: "2"
+  name: service-registry
+  namespace: openshift-gitops
+spec:
+  destination:
+    # Service Registry is installed alongside AMQ Streams
+    namespace: amqstreams
+    server: "https://kubernetes.default.svc"
+  # Target ArgoCD project where this application will be created
+  project: playground
+  source:
+    repoURL: "https://github.com/ryanezil/cluster-bootstrapping"
+    path: platform/service-registry
+    targetRevision: main
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: false
+    syncOptions:
+    - CreateNamespace=true
