@@ -1,0 +1,23 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  annotations:
+    argocd.argoproj.io/sync-wave: "3"
+  name: grafana
+  namespace: openshift-gitops
+spec:
+  destination:
+    namespace: grafana
+    server: "https://kubernetes.default.svc"
+  # Target ArgoCD project where this application will be created
+  project: playground
+  source:
+    repoURL: "https://github.com/ryanezil/cluster-bootstrapping"
+    path: platform/grafana-dashboards
+    targetRevision: main
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: false
+    syncOptions:
+    - CreateNamespace=true

@@ -1,0 +1,14 @@
+apiVersion: grafana.integreatly.org/v1beta1
+kind: GrafanaDashboard
+metadata:
+  name: strimzi-kafka-exporter-dashboard
+spec:
+  configMapRef:
+    key: strimzi-kafka-exporter.json
+    name: strimzi-dashboards
+  datasources:
+    - datasourceName: Thanos-DS
+      inputName: DS_PROMETHEUS
+  instanceSelector:
+    matchLabels:
+      dashboards: grafana
