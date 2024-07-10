@@ -19,6 +19,7 @@ spec:
       tlsSkipVerify: true
       httpHeaderName1: Authorization
     secureJsonData:
+      # Run 'oc describe secret secret-sa-token -n amqstreams |grep token' to get the token.
       httpHeaderValue1: "Bearer ${GRAFANA-ACCESS-TOKEN}"
   plugins:
     - name: grafana-clock-panel
