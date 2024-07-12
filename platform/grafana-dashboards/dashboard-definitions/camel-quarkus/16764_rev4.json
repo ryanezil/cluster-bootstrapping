@@ -255,7 +255,7 @@
             "uid": "${datasource}"
           },
           "editorMode": "code",
-          "expr": "sum(\n    increase(\n        camel_exchanges_total{\n            cluster=\"$cluster\",\n            namespace=\"$namespace\",\n            camelContext=\"$context\"\n        }[$__range]\n    )\n)",
+          "expr": "sum(\n    increase(\n        camel_exchanges_total{\n            namespace=\"$namespace\",\n            camelContext=\"$context\"\n        }[$__range]\n    )\n)",
           "format": "time_series",
           "instant": false,
           "interval": "",
@@ -351,7 +351,7 @@
             "uid": "${datasource}"
           },
           "editorMode": "code",
-          "expr": "sum by (camelContext) (\n    increase(\n        camel_exchanges_failed_total{\n            cluster=\"$cluster\",\n            namespace=\"$namespace\",\n            camelContext=\"$context\"\n        }[$__range]\n    )\n)",
+          "expr": "sum by (camelContext) (\n    increase(\n        camel_exchanges_failed_total{\n            namespace=\"$namespace\",\n            camelContext=\"$context\"\n        }[$__range]\n    )\n)",
           "format": "time_series",
           "instant": false,
           "interval": "",
@@ -366,7 +366,7 @@
             "uid": "${datasource}"
           },
           "editorMode": "code",
-          "expr": "sum by (camelContext) (\n    increase(\n        camel_exchanges_failed_total{\n            cluster=\"$cluster\",\n            namespace=\"$namespace\",\n            camelContext=\"$context\"\n        }[$__range])\n    ) \n/ \nsum by (camelContext) (\n    increase(\n        camel_exchanges_total{\n            cluster=\"$cluster\",\n            namespace=\"$namespace\",\n            camelContext=\"$context\"\n        }[$__range]\n    )\n)*100",
+          "expr": "sum by (camelContext) (\n    increase(\n        camel_exchanges_failed_total{\n            namespace=\"$namespace\",\n            camelContext=\"$context\"\n        }[$__range])\n    ) \n/ \nsum by (camelContext) (\n    increase(\n        camel_exchanges_total{\n            namespace=\"$namespace\",\n            camelContext=\"$context\"\n        }[$__range]\n    )\n)*100",
           "hide": false,
           "legendFormat": "__auto",
           "range": true,
@@ -916,7 +916,7 @@
             "uid": "${datasource}"
           },
           "editorMode": "code",
-          "expr": "sum by (routeId) (\n    irate(\n        camel_exchanges_total{\n            cluster=\"$cluster\",\n            namespace=\"$namespace\",\n            camelContext=\"$context\",\n            routeId=~\"$route\"\n        }[$__rate_interval]\n    )\n)",
+          "expr": "sum by (routeId) (\n    irate(\n        camel_exchanges_total{\n            namespace=\"$namespace\",\n            camelContext=\"$context\",\n            routeId=~\"$route\"\n        }[$__rate_interval]\n    )\n)",
           "legendFormat": "{{routeId}}",
           "range": true,
           "refId": "A"
@@ -984,7 +984,7 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "sum by (routeId) (\n    increase (\n        camel_route_policy_seconds_sum{\n            cluster=\"$cluster\",\n            namespace=\"$namespace\",\n            camelContext=\"$context\",\n            routeId=~\"$route\"\n        }[$__range]\n    )\n) \n \n/ \n \nsum by (routeId) (\n    increase (\n        camel_route_policy_seconds_count{\n            cluster=\"$cluster\",\n            namespace=\"$namespace\",\n            camelContext=\"$context\",\n            routeId=~\"$route\"\n        }[$__range]\n    )\n)",
+          "expr": "sum by (routeId) (\n    increase (\n        camel_route_policy_seconds_sum{\n            namespace=\"$namespace\",\n            camelContext=\"$context\",\n            routeId=~\"$route\"\n        }[$__range]\n    )\n) \n \n/ \n \nsum by (routeId) (\n    increase (\n        camel_route_policy_seconds_count{\n            namespace=\"$namespace\",\n            camelContext=\"$context\",\n            routeId=~\"$route\"\n        }[$__range]\n    )\n)",
           "format": "time_series",
           "hide": false,
           "instant": false,
@@ -1058,7 +1058,7 @@
           },
           "editorMode": "code",
           "exemplar": false,
-          "expr": "sum by (routeId) (\n    increase(\n        camel_exchanges_failed_total{\n            cluster=\"$cluster\",\n            namespace=\"$namespace\",\n            camelContext=\"$context\",\n            routeId=~\"$route\"\n        }[$__range]\n    )\n) \n/ \nsum by (routeId) (\n    increase(\n        camel_exchanges_total{\n            cluster=\"$cluster\",\n            namespace=\"$namespace\",\n            camelContext=\"$context\",\n            routeId=~\"$route\"\n        }[$__range]\n    ) > 0\n)",
+          "expr": "sum by (routeId) (\n    increase(\n        camel_exchanges_failed_total{\n            namespace=\"$namespace\",\n            camelContext=\"$context\",\n            routeId=~\"$route\"\n        }[$__range]\n    )\n) \n/ \nsum by (routeId) (\n    increase(\n        camel_exchanges_total{\n            namespace=\"$namespace\",\n            camelContext=\"$context\",\n            routeId=~\"$route\"\n        }[$__range]\n    ) > 0\n)",
           "instant": true,
           "legendFormat": "{{routeId}}",
           "range": false,
@@ -1146,7 +1146,7 @@
                 "uid": "${datasource}"
               },
               "editorMode": "code",
-              "expr": "sum(\n    irate(\n        camel_exchanges_total{\n            cluster=\"$cluster\",\n            namespace=\"$namespace\",\n            camelContext=\"$context\",\n            routeId=~\"$route\"\n        }[$__rate_interval]\n    )\n)",
+              "expr": "sum(\n    irate(\n        camel_exchanges_total{\n            namespace=\"$namespace\",\n            camelContext=\"$context\",\n            routeId=~\"$route\"\n        }[$__rate_interval]\n    )\n)",
               "format": "table",
               "instant": true,
               "intervalFactor": 1,
@@ -1242,7 +1242,7 @@
                 "uid": "${datasource}"
               },
               "editorMode": "code",
-              "expr": "sum by (camelContext) (\n    irate(\n        camel_exchanges_total{\n            cluster=\"$cluster\",\n            namespace=\"$namespace\",\n            camelContext=\"$context\",\n            routeId=~\"$route\"\n        }[$__rate_interval]\n    )\n)",
+              "expr": "sum by (camelContext) (\n    irate(\n        camel_exchanges_total{\n            namespace=\"$namespace\",\n            camelContext=\"$context\",\n            routeId=~\"$route\"\n        }[$__rate_interval]\n    )\n)",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "__auto",
@@ -1341,7 +1341,7 @@
                 "uid": "${datasource}"
               },
               "editorMode": "code",
-              "expr": "sum by (pod) (\n    irate(\n        camel_exchanges_total{\n            cluster=\"$cluster\",\n            namespace=\"$namespace\",\n            camelContext=\"$context\",\n            routeId=~\"$route\"\n        }[$__rate_interval]\n    )\n)",
+              "expr": "sum by (pod) (\n    irate(\n        camel_exchanges_total{\n            namespace=\"$namespace\",\n            camelContext=\"$context\",\n            routeId=~\"$route\"\n        }[$__rate_interval]\n    )\n)",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "__auto",
@@ -1443,7 +1443,7 @@
                 "uid": "${datasource}"
               },
               "editorMode": "code",
-              "expr": "sum by (routeId) (\n    increase(\n        camel_exchanges_failed_total{\n            cluster=\"$cluster\",\n            namespace=\"$namespace\",\n            camelContext=\"$context\",\n            routeId=~\"$route\"\n        }[$__range]\n    )\n) \n/ \nsum by (routeId) (\n    increase(\n        camel_exchanges_total{\n            cluster=\"$cluster\",\n            namespace=\"$namespace\",\n            camelContext=\"$context\",\n            routeId=~\"$route\"\n        }[$__range]\n    )\n)",
+              "expr": "sum by (routeId) (\n    increase(\n        camel_exchanges_failed_total{\n            namespace=\"$namespace\",\n            camelContext=\"$context\",\n            routeId=~\"$route\"\n        }[$__range]\n    )\n) \n/ \nsum by (routeId) (\n    increase(\n        camel_exchanges_total{\n            namespace=\"$namespace\",\n            camelContext=\"$context\",\n            routeId=~\"$route\"\n        }[$__range]\n    )\n)",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "__auto",
@@ -1729,7 +1729,7 @@
               },
               "editorMode": "code",
               "exemplar": false,
-              "expr": "sum by (camelContext) (\n    increase (\n        camel_route_policy_seconds_sum{\n            cluster=\"$cluster\",\n            namespace=\"$namespace\",\n            camelContext=\"$context\",\n            routeId=~\"$route\"\n        }[$__range]\n    )\n) \n\n/ \n\nsum by (camelContext) (\n    increase (\n        camel_route_policy_seconds_count{\n            cluster=\"$cluster\",\n            namespace=\"$namespace\",\n            camelContext=\"$context\",\n            routeId=~\"$route\"\n        }[$__range]\n    )\n)",
+              "expr": "sum by (camelContext) (\n    increase (\n        camel_route_policy_seconds_sum{\n            namespace=\"$namespace\",\n            camelContext=\"$context\",\n            routeId=~\"$route\"\n        }[$__range]\n    )\n) \n\n/ \n\nsum by (camelContext) (\n    increase (\n        camel_route_policy_seconds_count{\n            namespace=\"$namespace\",\n            camelContext=\"$context\",\n            routeId=~\"$route\"\n        }[$__range]\n    )\n)",
               "format": "time_series",
               "hide": false,
               "instant": false,
@@ -1832,7 +1832,7 @@
                 "uid": "${datasource}"
               },
               "editorMode": "code",
-              "expr": "sum by (camelContext) (\n    increase (\n        camel_route_policy_seconds_sum{\n            cluster=\"$cluster\",\n            namespace=\"$namespace\",\n            camelContext=\"$context\",\n            routeId=~\"$route\"\n        }[$__range]\n    )\n) \n \n/ \n \nsum by (camelContext) (\n    increase (\n        camel_route_policy_seconds_count{\n            cluster=\"$cluster\",\n            namespace=\"$namespace\",\n            camelContext=\"$context\",\n            routeId=~\"$route\"\n        }[$__range]\n    )\n)",
+              "expr": "sum by (camelContext) (\n    increase (\n        camel_route_policy_seconds_sum{\n            namespace=\"$namespace\",\n            camelContext=\"$context\",\n            routeId=~\"$route\"\n        }[$__range]\n    )\n) \n \n/ \n \nsum by (camelContext) (\n    increase (\n        camel_route_policy_seconds_count{\n            namespace=\"$namespace\",\n            camelContext=\"$context\",\n            routeId=~\"$route\"\n        }[$__range]\n    )\n)",
               "format": "time_series",
               "intervalFactor": 1,
               "legendFormat": "__auto",
@@ -1933,7 +1933,7 @@
                 "uid": "${datasource}"
               },
               "editorMode": "code",
-              "expr": "sum by (pod) (\n    increase (\n        camel_route_policy_seconds_sum{\n            cluster=\"$cluster\",\n            namespace=\"$namespace\",\n            camelContext=\"$context\",\n            routeId=~\"$route\"\n        }[$__range]\n    )\n) \n \n/ \n \nsum by (pod) (\n    increase (\n        camel_route_policy_seconds_count{\n            cluster=\"$cluster\",\n            namespace=\"$namespace\",\n            camelContext=\"$context\",\n            routeId=~\"$route\"\n        }[$__range]\n    )\n)",
+              "expr": "sum by (pod) (\n    increase (\n        camel_route_policy_seconds_sum{\n            namespace=\"$namespace\",\n            camelContext=\"$context\",\n            routeId=~\"$route\"\n        }[$__range]\n    )\n) \n \n/ \n \nsum by (pod) (\n    increase (\n        camel_route_policy_seconds_count{\n            namespace=\"$namespace\",\n            camelContext=\"$context\",\n            routeId=~\"$route\"\n        }[$__range]\n    )\n)",
               "format": "time_series",
               "instant": false,
               "intervalFactor": 1,
@@ -2050,7 +2050,7 @@
                 "uid": "${datasource}"
               },
               "editorMode": "code",
-              "expr": "sum by (routeId,nodeId) (\n    increase (\n        camel_message_history_seconds_sum{\n            cluster=\"$cluster\",\n            namespace=\"$namespace\",\n            camelContext=\"$context\",\n            routeId=~\"$route\",\n            nodeId=~\"$processor\"\n        }[$__range]\n    )\n) \n/ \nsum by (routeId,nodeId) (\n    increase (\n        camel_message_history_seconds_count{\n            cluster=\"$cluster\",\n            namespace=\"$namespace\",\n            camelContext=\"$context\",\n            routeId=~\"$route\",\n            nodeId=~\"$processor\"\n        }[$__range]\n    )\n)\n",
+              "expr": "sum by (routeId,nodeId) (\n    increase (\n        camel_message_history_seconds_sum{\n            namespace=\"$namespace\",\n            camelContext=\"$context\",\n            routeId=~\"$route\",\n            nodeId=~\"$processor\"\n        }[$__range]\n    )\n) \n/ \nsum by (routeId,nodeId) (\n    increase (\n        camel_message_history_seconds_count{\n            namespace=\"$namespace\",\n            camelContext=\"$context\",\n            routeId=~\"$route\",\n            nodeId=~\"$processor\"\n        }[$__range]\n    )\n)\n",
               "format": "table",
               "hide": false,
               "instant": true,
