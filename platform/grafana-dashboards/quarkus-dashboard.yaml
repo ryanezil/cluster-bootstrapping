@@ -1,0 +1,14 @@
+apiVersion: grafana.integreatly.org/v1beta1
+kind: GrafanaDashboard
+metadata:
+  name: quarkus-dashboard
+spec:
+  configMapRef:
+    key: 14370_rev6.json
+    name: camel-quarkus-dashboards
+  datasources:
+    - datasourceName: Thanos-DS
+      inputName: DS_PROMETHEUS
+  instanceSelector:
+    matchLabels:
+      dashboards: grafana

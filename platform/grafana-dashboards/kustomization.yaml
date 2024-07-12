@@ -7,9 +7,12 @@ resources:
   - strimzi-kafka-exporter-dashboard.yaml
   - strimzi-kafka-connect-dashboard.yaml
   - strimzi-operators-dashboard.yaml
+  - camel-dashboard.yaml
+  - quarkus-dashboard.yaml
 
 components:
   - ./dashboard-definitions/strimzi
+  - ./dashboard-definitions/camel-quarkus
 
 
 commonLabels:

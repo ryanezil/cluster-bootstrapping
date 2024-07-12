@@ -1,0 +1,17 @@
+apiVersion: kustomize.config.k8s.io/v1alpha1
+kind: Component
+
+generatorOptions:
+  disableNameSuffixHash: true
+  labels:
+    app: grafana
+#  annotations:
+#    note: generated
+
+configMapGenerator:
+- name: camel-quarkus-dashboards
+  files:
+    # Camel Dashboard
+    - 16764_rev4.json=./16764_rev4.json
+    # Quarkus Dashboard
+    - 14370_rev6.json=./14370_rev6.json
