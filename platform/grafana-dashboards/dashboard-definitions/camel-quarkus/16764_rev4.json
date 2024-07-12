@@ -2083,11 +2083,6 @@
   "templating": {
     "list": [
       {
-        "current": {
-          "selected": true,
-          "text": "default",
-          "value": "default"
-        },
         "hide": 0,
         "includeAll": false,
         "label": "Data Source",
@@ -2102,15 +2097,6 @@
         "type": "datasource"
       },
       {
-        "current": {
-          "selected": false,
-          "text": "All",
-          "value": "$__all"
-        },
-        "datasource": {
-          "type": "prometheus",
-          "uid": "grafanacloud-prom"
-        },
         "definition": "label_values(camel_routes_running_routes{eventType=\"RouteEvent\"},job)",
         "description": "",
         "hide": 0,
@@ -2130,15 +2116,6 @@
         "type": "query"
       },
       {
-        "current": {
-          "selected": false,
-          "text": "local",
-          "value": "local"
-        },
-        "datasource": {
-          "type": "prometheus",
-          "uid": "grafanacloud-prom"
-        },
         "definition": "label_values(camel_routes_running_routes{eventType=\"RouteEvent\"},cluster)",
         "hide": 0,
         "includeAll": false,
@@ -2157,15 +2134,6 @@
         "type": "query"
       },
       {
-        "current": {
-          "selected": false,
-          "text": "camel",
-          "value": "camel"
-        },
-        "datasource": {
-          "type": "prometheus",
-          "uid": "grafanacloud-prom"
-        },
         "definition": "label_values(camel_routes_running_routes{eventType=\"RouteEvent\",job=~\"${job}\",cluster=\"${cluster}\"},namespace)",
         "hide": 0,
         "includeAll": false,
@@ -2187,15 +2155,6 @@
         "useTags": false
       },
       {
-        "current": {
-          "selected": false,
-          "text": "smoke-test-app",
-          "value": "smoke-test-app"
-        },
-        "datasource": {
-          "type": "prometheus",
-          "uid": "grafanacloud-prom"
-        },
         "definition": "label_values(camel_routes_running_routes{eventType=\"RouteEvent\",job=~\"${job}\",cluster=\"${cluster}\",namespace=\"$namespace\"},camelContext)",
         "hide": 0,
         "includeAll": false,
@@ -2217,15 +2176,6 @@
         "useTags": false
       },
       {
-        "current": {
-          "selected": false,
-          "text": "All",
-          "value": "$__all"
-        },
-        "datasource": {
-          "type": "prometheus",
-          "uid": "grafanacloud-prom"
-        },
         "definition": "label_values(camel_exchanges_succeeded_total{job=~\"${job}\",cluster=\"${cluster}\",namespace=\"$namespace\",camelContext=\"$context\"},routeId)",
         "hide": 0,
         "includeAll": true,
@@ -2247,15 +2197,6 @@
         "useTags": false
       },
       {
-        "current": {
-          "selected": false,
-          "text": "All",
-          "value": "$__all"
-        },
-        "datasource": {
-          "type": "prometheus",
-          "uid": "grafanacloud-prom"
-        },
         "definition": "label_values(camel_message_history_seconds_count{job=~\"${job}\",cluster=\"${cluster}\",namespace=\"$namespace\",camelContext=\"$context\",routeId=~\"$route\"},nodeId)",
         "hide": 0,
         "includeAll": true,
@@ -2277,16 +2218,6 @@
         "useTags": false
       },
       {
-        "allValue": "",
-        "current": {
-          "selected": false,
-          "text": "dev",
-          "value": "dev"
-        },
-        "datasource": {
-          "type": "prometheus",
-          "uid": "grafanacloud-prom"
-        },
         "definition": "label_values(camel_routes_running_routes{job=~\"$job\",cluster=\"${cluster}\",eventType=\"RouteEvent\",camelContext=\"$context\"},app_kubernetes_io_part_of)",
         "hide": 0,
         "includeAll": false,
@@ -2305,16 +2236,6 @@
         "type": "query"
       },
       {
-        "allValue": "",
-        "current": {
-          "selected": false,
-          "text": "dev",
-          "value": "dev"
-        },
-        "datasource": {
-          "type": "prometheus",
-          "uid": "grafanacloud-prom"
-        },
         "definition": "label_values(camel_routes_running_routes{job=~\"$job\",cluster=\"${cluster}\",eventType=\"RouteEvent\",camelContext=\"$context\"},app_kubernetes_io_name)",
         "hide": 0,
         "includeAll": false,
@@ -2333,16 +2254,6 @@
         "type": "query"
       },
       {
-        "allValue": "",
-        "current": {
-          "selected": false,
-          "text": "dev",
-          "value": "dev"
-        },
-        "datasource": {
-          "type": "prometheus",
-          "uid": "grafanacloud-prom"
-        },
         "definition": "label_values(camel_routes_running_routes{job=~\"$job\",cluster=\"${cluster}\",eventType=\"RouteEvent\",camelContext=\"$context\"},app_kubernetes_io_component)",
         "hide": 0,
         "includeAll": false,
@@ -2361,16 +2272,6 @@
         "type": "query"
       },
       {
-        "allValue": "",
-        "current": {
-          "selected": true,
-          "text": "dev-master",
-          "value": "dev-master"
-        },
-        "datasource": {
-          "type": "prometheus",
-          "uid": "grafanacloud-prom"
-        },
         "definition": "label_values(camel_routes_running_routes{job=~\"$job\",cluster=\"${cluster}\",eventType=\"RouteEvent\",camelContext=\"$context\"},app_kubernetes_io_instance)",
         "hide": 0,
         "includeAll": false,
@@ -2389,16 +2290,6 @@
         "type": "query"
       },
       {
-        "allValue": "",
-        "current": {
-          "selected": false,
-          "text": "dev-snapshot",
-          "value": "dev-snapshot"
-        },
-        "datasource": {
-          "type": "prometheus",
-          "uid": "grafanacloud-prom"
-        },
         "definition": "label_values(camel_routes_running_routes{job=~\"$job\",cluster=\"${cluster}\",eventType=\"RouteEvent\",camelContext=\"$context\"},app_kubernetes_io_version)",
         "hide": 0,
         "includeAll": false,

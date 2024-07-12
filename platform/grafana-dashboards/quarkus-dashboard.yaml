@@ -8,7 +8,7 @@ spec:
     name: camel-quarkus-dashboards
   datasources:
     - datasourceName: Thanos-DS
-      inputName: DS_PROMETHEUS
+      inputName: datasource
   instanceSelector:
     matchLabels:
       dashboards: grafana
