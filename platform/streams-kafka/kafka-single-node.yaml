@@ -1,23 +1,47 @@
 apiVersion: kafka.strimzi.io/v1beta2
+kind: KafkaNodePool
+metadata:
+  name: pool-brokers
+  labels:
+    strimzi.io/cluster: single-node-cluster
+spec:
+  replicas: 1
+  roles:
+    - broker
+    - controller
+  storage:
+    type: jbod
+    volumes:
+      - id: 0
+        type: persistent-claim
+        size: 1Gi
+        deleteClaim: false
+        # Indicates that this directory will be used to store Kraft metadata log
+        kraftMetadata: shared
+---
+
+apiVersion: kafka.strimzi.io/v1beta2
 kind: Kafka
 metadata:
   name: single-node-cluster
+  annotations:
+    strimzi.io/node-pools: enabled
+    strimzi.io/kraft: enabled
 spec:
   kafka:
-    version: 3.7.0
-    replicas: 1
-#    authorization:
-#      type: simple
-#      superUsers:
-#        - superuser
+    version: 4.0.0
+    # KRaft metadata version, which can be changed to a supported version by following the upgrade procedure
+    # Procedure: https://strimzi.io/docs/operators/latest/deploying#con-upgrade-sequence-str
+    metadataVersion: 4.0-IV3
+    authorization:
+      type: simple
+      superUsers:
+        - superuser
     listeners:
       - name: plain
         port: 9092
         type: internal
         tls: false
-        # WARNING: This listener is not secured
-        #authentication:
-        #  type: scram-sha-512
       - name: tls
         port: 9093
         type: internal
@@ -32,8 +56,26 @@ spec:
         authentication:
           # type: tls
           type: scram-sha-512
+    # https://docs.redhat.com/en/documentation/red_hat_streams_for_apache_kafka/2.9/html/deploying_and_managing_streams_for_apache_kafka_on_openshift/overview-str#proc-setting-broker-limits-str
+    # The built-in 'kafka' type plugin is enabled by default
+    # + The 'kafka' plugin applies throughput limits on a per-user, per-broker basis and includes additional CPU and operation rate limits
+    # + The 'strimzi' plugin provides storage utilization quotas and dynamic distribution of throughput limits
+    quotas:
+      # Reference: https://strimzi.io/docs/operators/latest/configuring.html#type-QuotasPluginStrimzi-reference
+      type: strimzi
+      producerByteRate: 1000000
+      consumerByteRate: 1000000
+      minAvailableBytesPerVolume: 500000000000
+      # The principals have to be prefixed with User:, for example User:my-user;User:CN=my-other-user.
+      excludedPrincipals:
+        - User:superuser
     config:
-      inter.broker.protocol.version: "3.7"
+      # By default, if a resource has no associated ACLs, then only super users
+      # can access that resource. Set to 'true' in order to change that behavior
+      allow.everyone.if.no.acl.found: 'true'
+      # inter.broker.protocol.version is not used in KRaft-based Kafka clusters
+      # and should be removed from the Kafka custom resource.
+      # inter.broker.protocol.version: "3.9"
 
       # specify the message format version the broker will use to append messages to the logs
       # From Kafka 3.0.0, when the inter.broker.protocol.version is set to 3.0 or higher
@@ -47,6 +89,7 @@ spec:
       num.partitions: 1
 
       # Enable auto creation of topic on the server
+      # This is recommended to be false. Read motivation https://docs.redhat.com/en/documentation/red_hat_streams_for_apache_kafka/2.9/html-single/deploying_and_managing_streams_for_apache_kafka_on_openshift/index#automatic_creation_of_topics
       auto.create.topics.enable: true
 
       # When a producer sets acks to "all" (or "-1"), min.insync.replicas specifies the minimum number of replicas that
@@ -96,29 +139,20 @@ spec:
       ssl.cipher.suites: "TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384"
       ssl.enabled.protocols: "TLSv1.3, TLSv1.2"
       ssl.protocol: "TLSv1.3"
-      ssl.endpoint.identification.algorithm: HTTPS
 
-#    jvmOptions:
+    jvmOptions:
+      # This is disabled by default
+      gcLoggingEnabled: false
 #      "-Xms": "1g"
 #      "-Xmx": "2g"
     resources:
-#      requests:
-#        cpu: 500m
-#        memory: 4Gi
-      limits:
+      requests:
         cpu: 500m
         memory: 1Gi
-    storage:
-      type: jbod
-      volumes:
-      - id: 0
-        type: persistent-claim
-        size: 1Gi
-        deleteClaim: false
-#      - id: 1
-#        type: persistent-claim
-#        size: 1Gi
-#        deleteClaim: false
+      limits:
+        cpu: 1000m
+        memory: 2048Mi
+
     template:
       pod:
         affinity:
@@ -137,8 +171,7 @@ spec:
       valueFrom:
         configMapKeyRef:
           name: kafka-metrics
-          key: kafka-metrics-config.yml
-
+          key: kafka-metrics.yaml
 
   #################
   # KAFKA EXPORTER
@@ -148,6 +181,9 @@ spec:
     topicRegex: ".*"
     groupExcludeRegex: "^excluded-.*"
     topicExcludeRegex: "^excluded-.*"
+    # By default, metrics are collected for all consumers regardless of their connection status
+    # Setting showAllOffsets to false stops collecting metrics on disconnected consumers
+    showAllOffsets: false
     resources:
       requests:
         cpu: 200m
@@ -157,6 +193,11 @@ spec:
         memory: 128Mi
     logging: debug
     enableSaramaLogging: true
+    template:
+      pod:
+        metadata:
+          labels:
+            mylabelname: mylabelvalue
     readinessProbe:
       initialDelaySeconds: 15
       timeoutSeconds: 5
@@ -164,43 +205,10 @@ spec:
       initialDelaySeconds: 15
       timeoutSeconds: 5
 
-  zookeeper:
-    replicas: 1
-    storage:
-      type: persistent-claim
-      size: 1Gi
-      deleteClaim: false
-#    jvmOptions:
-#      "-Xms": "2g"
-#      "-Xmx": "2g"
-    resources:
-#      requests:
-#        cpu: 500m
-#        memory: 3Gi
-      limits:
-        cpu: 250m
-        memory: 1024Mi
-    metricsConfig:
-      type: jmxPrometheusExporter
-      valueFrom:
-        configMapKeyRef:
-          name: kafka-metrics
-          key: zookeeper-metrics-config.yml
-    template:
-      pod:
-        affinity:
-          podAntiAffinity:
-            preferredDuringSchedulingIgnoredDuringExecution:
-            - podAffinityTerm:
-                labelSelector:
-                  matchExpressions:
-                  - key: strimzi.io/name
-                    operator: "Exists"
-                topologyKey: "kubernetes.io/hostname"
-              weight: 100
+
   entityOperator:
     topicOperator:
-      reconciliationIntervalSeconds: 60
+      reconciliationIntervalMs: 60000
       resources:
         requests:
           cpu: 100m
@@ -209,15 +217,7 @@ spec:
           cpu: 250m
           memory: 1024Mi
     userOperator:
-      reconciliationIntervalSeconds: 60
-      resources:
-        requests:
-          cpu: 100m
-          memory: 64Mi
-        limits:
-          cpu: 250m
-          memory: 1024Mi
-    tlsSidecar:
+      reconciliationIntervalMs: 60000
       resources:
         requests:
           cpu: 100m
