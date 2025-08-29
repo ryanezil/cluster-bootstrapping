@@ -8,7 +8,7 @@ spec:
       app: grafana
       dashboards: grafana
   datasource:
-    name: prometheus-DS
+    name: prometheus-ds
     type: prometheus
     url: 'http://prometheus-operated.prometheus.svc.cluster.local:9090'
     access: proxy
