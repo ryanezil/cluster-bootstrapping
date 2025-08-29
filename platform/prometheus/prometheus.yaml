@@ -1,4 +1,7 @@
-# Reference: https://github.com/prometheus-operator/kube-prometheus/blob/main/manifests/prometheus-prometheus.yaml
+# Reference:
+# https://github.com/prometheus-operator/prometheus-operator/blob/main/Documentation/api-reference/api.md#monitoring.coreos.com/v1.Prometheus
+# https://github.com/prometheus-operator/kube-prometheus/blob/main/manifests/prometheus-prometheus.yaml
+
 apiVersion: monitoring.coreos.com/v1
 kind: Prometheus
 metadata:
@@ -8,7 +11,9 @@ metadata:
 spec:
   replicas: 1
   serviceAccountName: prometheus-server
+  # Select PodMonitors from any namespace
   podMonitorNamespaceSelector: {}
+  # Select all PodMonitors found in the selected namespaces
   podMonitorSelector: {}
   probeNamespaceSelector: {}
   probeSelector: {}

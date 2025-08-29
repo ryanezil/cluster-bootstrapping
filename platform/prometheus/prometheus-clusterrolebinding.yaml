@@ -11,5 +11,5 @@ roleRef:
 subjects:
   - kind: ServiceAccount
     name: prometheus-server
-#### CHANGE ####
+    # Specify the namespace of the ServiceAccount
     namespace: prometheus
