@@ -5,11 +5,12 @@ metadata:
 spec:
   instanceSelector:
     matchLabels:
+      app: grafana
       dashboards: grafana
   datasource:
     name: Grafana-DS
     type: prometheus
-    url: 'https://prometheus-operated.prometheus.svc.cluster.local:909'
+    url: 'http://prometheus-operated.prometheus.svc.cluster.local:9090'
     access: proxy
     editable: true
     basicAuth: false
