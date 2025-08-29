@@ -1,14 +1,14 @@
 apiVersion: grafana.integreatly.org/v1beta1
 kind: GrafanaDatasource
 metadata:
-  name: prometheus
+  name: prometheus-ds
 spec:
   instanceSelector:
     matchLabels:
       app: grafana
       dashboards: grafana
   datasource:
-    name: Grafana-DS
+    name: prometheus-DS
     type: prometheus
     url: 'http://prometheus-operated.prometheus.svc.cluster.local:9090'
     access: proxy
