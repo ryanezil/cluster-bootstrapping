@@ -5,6 +5,12 @@ metadata:
   labels:
     app: strimzi
 rules:
+  - apiGroups: ["monitoring.coreos.com"]
+    resources:
+      - podmonitors
+      - servicemonitors
+      - prometheusrules
+    verbs: ["get", "list", "watch"]
   - apiGroups: [""]
     resources:
       - nodes
