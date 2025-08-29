@@ -12,4 +12,3 @@ spec:
     termination: edge
   port:
     targetPort: web
-  alternateBackends: []

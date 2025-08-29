@@ -1,3 +1,4 @@
+# Reference: https://github.com/prometheus-operator/kube-prometheus/blob/main/manifests/prometheus-prometheus.yaml
 apiVersion: monitoring.coreos.com/v1
 kind: Prometheus
 metadata:
@@ -7,7 +8,11 @@ metadata:
 spec:
   replicas: 1
   serviceAccountName: prometheus-server
+  podMonitorNamespaceSelector: {}
   podMonitorSelector: {}
+  probeNamespaceSelector: {}
+  probeSelector: {}
+  serviceMonitorNamespaceSelector: {}
   serviceMonitorSelector: {}
 #  serviceMonitorSelector:
 #    matchLabels:
