@@ -3,4 +3,4 @@ kind: ServiceAccount
 metadata:
   name: prometheus-server
   labels:
-    app: strimzi
+    app: prometheus
