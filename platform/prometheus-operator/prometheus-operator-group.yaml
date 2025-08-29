@@ -4,4 +4,6 @@ metadata:
   name: prometheus-opgroup
   namespace: prometheus
 spec:
+  targetNamespaces:
+  - prometheus
   upgradeStrategy: Default
