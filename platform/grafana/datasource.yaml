@@ -8,16 +8,18 @@ spec:
       app: grafana
       dashboards: grafana
   datasource:
-    name: prometheus-ds
-    type: prometheus
-    url: 'http://prometheus-operated.prometheus.svc.cluster.local:9090'
+    # [direct|proxy] For Grafana instances deployed on Kubernetes, it is highly recommended to use the proxy access mode
     access: proxy
-    editable: true
     basicAuth: false
+    database: prometheus
+    editable: false
     isDefault: true
     jsonData:
       timeInterval: 5s
       tlsSkipVerify: true
+    name: prometheus-ds
+    type: prometheus
+    url: 'http://prometheus-operated.prometheus.svc.cluster.local:9090'
   plugins:
     - name: grafana-clock-panel
       version: 2.1.8

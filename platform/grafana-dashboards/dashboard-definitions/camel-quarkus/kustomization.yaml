@@ -5,6 +5,7 @@ generatorOptions:
   disableNameSuffixHash: true
   labels:
     app: grafana
+    dashboards: grafana
 #  annotations:
 #    note: generated
 

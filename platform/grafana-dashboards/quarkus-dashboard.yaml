@@ -7,8 +7,9 @@ spec:
     key: 14370_rev6.json
     name: camel-quarkus-dashboards
   datasources:
-    - datasourceName: Thanos-DS
+    - datasourceName: prometheus-ds
       inputName: DS_PROMETHEUS
   instanceSelector:
     matchLabels:
+      app: grafana
       dashboards: grafana

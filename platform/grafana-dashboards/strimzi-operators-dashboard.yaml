@@ -7,8 +7,9 @@ spec:
     key: strimzi-operators.json
     name: strimzi-dashboards
   datasources:
-    - datasourceName: Thanos-DS
+    - datasourceName: prometheus-ds
       inputName: DS_PROMETHEUS
   instanceSelector:
     matchLabels:
+      app: grafana
       dashboards: grafana

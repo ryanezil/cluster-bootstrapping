@@ -5,6 +5,7 @@ generatorOptions:
   disableNameSuffixHash: true
   labels:
     app: grafana
+    dashboards: grafana
 #  annotations:
 #    note: generated
 
@@ -12,7 +13,6 @@ configMapGenerator:
 - name: strimzi-dashboards
   files:
     - strimzi-kafka-exporter.json=./strimzi-kafka-exporter.json
-    - strimzi-kafka.json=./strimzi-kafka.json
-    - strimzi-zookeeper.json=./strimzi-zookeeper.json
+    - strimzi-kraft.json=./strimzi-kraft.json
     - strimzi-kafka-connect.json=./strimzi-kafka-connect.json
     - strimzi-operators.json=./strimzi-operators.json

@@ -9,12 +9,13 @@ resources:
   - strimzi-operators-dashboard.yaml
   - camel-dashboard.yaml
   - quarkus-dashboard.yaml
+  - amq-broker-dashboard.yaml
 
 components:
   - ./dashboard-definitions/strimzi
   - ./dashboard-definitions/camel-quarkus
-
+  - ./dashboard-definitions/amq-broker
 
 commonLabels:
   app: grafana
-
+  dashboards: grafana
