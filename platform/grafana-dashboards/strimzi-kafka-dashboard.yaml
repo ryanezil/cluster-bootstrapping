@@ -4,7 +4,7 @@ metadata:
   name: strimzi-kafka-dashboard
 spec:
   configMapRef:
-    key: strimzi-kafka.json
+    key: strimzi-kraft.json
     name: strimzi-dashboards
   datasources:
     - datasourceName: prometheus-ds
