@@ -1,0 +1,15 @@
+apiVersion: grafana.integreatly.org/v1beta1
+kind: GrafanaDashboard
+metadata:
+  name: quarkus-dashboard
+spec:
+  configMapRef:
+    key: amq-dashboard.json
+    name: amq-broker-dashboards
+  datasources:
+    - datasourceName: prometheus-ds
+      inputName: DS_PROMETHEUS
+  instanceSelector:
+    matchLabels:
+      app: grafana
+      dashboards: grafana
