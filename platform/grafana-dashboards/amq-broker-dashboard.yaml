@@ -1,7 +1,7 @@
 apiVersion: grafana.integreatly.org/v1beta1
 kind: GrafanaDashboard
 metadata:
-  name: quarkus-dashboard
+  name: amq-broker-dashboard
 spec:
   configMapRef:
     key: amq-dashboard.json
